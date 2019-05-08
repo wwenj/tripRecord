@@ -1,18 +1,43 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    home
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'home',
-  components: {
-    HelloWorld
+  mounted () {
+    this.init()
+    console.log(this.id)
+  },
+  computed: {
+    ...mapGetters(['id'])
+  },
+  methods: {
+    init () {
+      this.setId('wangwenj')
+      let params = {
+        name: 'wang',
+        age: 'wen'
+      }
+      this.$http.get('http://yapi.demo.qunar.com/mock/63722/home', params).then(res => {
+        console.log(res)
+      })
+      this.$http.post('http://yapi.demo.qunar.com/mock/63722/about', params).then(res => {
+        console.log(res)
+      })
+    },
+    ...mapActions(['setId'])
   }
 }
 </script>
+<style lang="scss" scoped>
+.home{
+  width: 750px;
+  height: 50px;
+  box-sizing: border-box;
+  border: 1px solid black;
+}
+</style>
