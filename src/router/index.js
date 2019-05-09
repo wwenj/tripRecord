@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './moudle/home'
+import Trip from './moudle/trip'
 
 Vue.use(Router)
 
 const commonRoutes = [
-  { path: '/404', component: () => import('components/routerError/404') },
-  { path: '/401', component: () => import('components/routerError/401') },
+  { path: '/404', component: () => import('components/RouterError/404') },
+  { path: '/401', component: () => import('components/RouterError/401') },
   { path: '*', redirect: '/404' },
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/trip'
   }
 ]
 
@@ -18,5 +19,5 @@ const commonRoutes = [
 export default new Router({
   // mode: 'history',
   base: process.env.BASE_URL,
-  routes: commonRoutes.concat(Home)
+  routes: commonRoutes.concat(Home, Trip)
 })

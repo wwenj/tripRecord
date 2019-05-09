@@ -1,19 +1,36 @@
 <template>
-  <div class="main">
-    <strong><svg-icon style="fontSize:35px;" icon-class="yiren"/>401错误</strong>
+  <div class="md-example-child md-example-child-result-page md-example-child-result-page-3">
+    <md-result-page
+      class="customized"
+      img-url="//manhattan.didistatic.com/static/manhattan/do1_JX7bcfXqLpStKRv31xlp"
+      text="不太确定自己错在了哪里..."
+      subtext="要不然刷新试试？">
+    </md-result-page>
   </div>
 </template>
-<style lang="scss" scoped>
-.main {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  strong {
-    font-size: 30px;
-    color: red;
-    display: block;
-    text-align: center;
-    margin: 300px auto;
+
+<script>
+import { ResultPage } from 'mand-mobile'
+
+export default {
+  name: 'result-page-demo',
+  /* DELETE */
+  title: '自定义图案',
+  titleEnUS: 'Custom pattern',
+  /* DELETE */
+  components: {
+    [ResultPage.name]: ResultPage
   }
+}
+
+</script>
+<style lang="scss" scoped>
+.md-example-child-result-page-3{
+  background: #FFF;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  margin-top: -100px;
 }
 </style>

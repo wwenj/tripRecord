@@ -1,14 +1,10 @@
 <template>
-  <div class="md-example-child md-example-child-tabs md-example-child-tab-bar-4">
-    <md-tab-bar
-      v-model="current"
-      :items="items"
-      :has-ink="false"
-    >
+  <div class="btm-nav">
+    <md-tab-bar v-model="current" :items="items" :has-ink="false" @change="navOnChage">
       <template slot="item" slot-scope="{ item }">
         <div class="custom-item">
           <div class="icon">
-            <md-icon :name="item.icon" />
+            <md-icon :name="item.icon"/>
           </div>
           <div class="text">
             <span v-text="item.label"></span>
@@ -35,22 +31,29 @@ export default {
   data () {
     return {
       current: 1,
-      items: [{ name: 1, label: '首页', icon: 'home' }, { name: 2, label: '我的', icon: 'user' }]
+      items: [
+        { name: 1, label: '出行', icon: 'home' },
+        { name: 2, label: '交通', icon: 'location' },
+        { name: 3, label: '历史', icon: 'calendar' },
+        { name: 4, label: '我的', icon: 'authentication' }
+      ]
+    }
+  },
+  methods: {
+    navOnChage (e) {
+      console.log(e)
     }
   }
 }
-
 </script>
 
-<style lang="stylus">
-.md-example-child-tab-bar-4
-  .custom-item
-    display flex
-    flex-direction column
-    align-items center
-    justify-content center
-    height 100%
-    flex 1
-    .text
-      font-size 20px
+<style lang="scss" scoped>
+.btm-nav {
+  width: 100%;
+  height: 100px;
+  // border:1px solid black;
+}
+.icon {
+  text-align: center;
+}
 </style>

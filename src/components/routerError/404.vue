@@ -1,19 +1,31 @@
 <template>
-  <div class="main">
-    <strong><svg-icon style="fontSize:30px;" icon-class="yiren"/>404页面找不到</strong>
+  <div class="md-example-child md-example-child-result-page md-example-child-result-page-0">
+    <md-result-page
+      type="lost">
+    </md-result-page>
   </div>
 </template>
-<style lang="scss" scoped>
-.main {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  strong {
-    font-size: 30px;
-    color: red;
-    display: block;
-    text-align: center;
-    margin: 300px auto;
+
+<script>
+import { ResultPage } from 'mand-mobile'
+
+export default {
+  name: 'result-page-demo',
+  title: '404',
+  components: {
+    [ResultPage.name]: ResultPage
   }
+}
+
+</script>
+
+<style lang="scss" scoped>
+.md-example-child-result-page-0{
+  background: #FFF;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  margin-top: -100px;
 }
 </style>
