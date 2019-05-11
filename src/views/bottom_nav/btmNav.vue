@@ -1,6 +1,6 @@
 <template>
   <div class="btm-nav">
-    <md-tab-bar v-model="current" :items="items" :has-ink="false" @change="navOnChage">
+    <md-tab-bar v-model="currentTab" :items="items" :has-ink="false" @change="navOnChage">
       <template slot="item" slot-scope="{ item }">
         <div class="custom-item">
           <div class="icon">
@@ -19,18 +19,14 @@
 import { TabBar, Icon } from 'mand-mobile'
 
 export default {
-  name: 'tab-bar-demo',
-  /* DELETE */
-  title: '自定义内容',
-  titleEnUS: 'Custom Item',
-  /* DELETE */
+  name: 'barTab',
   components: {
     [TabBar.name]: TabBar,
     [Icon.name]: Icon
   },
   data () {
     return {
-      current: 1,
+      currentTab: 1,
       items: [
         { name: 1, label: '出行', icon: 'home' },
         { name: 2, label: '交通', icon: 'location' },
@@ -41,7 +37,19 @@ export default {
   },
   methods: {
     navOnChage (e) {
-      console.log(e)
+      switch (e.name) {
+        case 1:
+          this.$router.push({ path: '/trip' })
+          break
+        case 2:
+          this.$router.push({ path: '/traffic' })
+          break
+        case 3:
+          this.$router.push({ path: '/trip' })
+          break
+        case 4:
+          this.$router.push({ path: '/trip' })
+      }
     }
   }
 }
