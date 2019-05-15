@@ -18,21 +18,23 @@
         <div class="trip-start" @click="tripStartOnClick">开始{{wayData[TripWay]}}</div>
       </div>
     </div>
-    <div v-else class="trip-map">
-      <router-view/>
-    </div>
+    <transition name="fademap">
+      <div v-if="$route.name === 'Map'" class="trip-map">
+        <router-view/>
+      </div>
+    </transition>
   </div>
 </template>
 <script>
-import { Tabs, TabPane, Button } from 'mand-mobile'
-import MapLocation from 'components/MapLocation/index'
+// import { Tabs, TabPane, Button } from 'mand-mobile'
+// import MapLocation from 'components/MapLocation/index'
 export default {
   name: 'trip',
   components: {
-    [Tabs.name]: Tabs,
-    [TabPane.name]: TabPane,
-    [Button.name]: Button,
-    MapLocation: MapLocation
+    // [Tabs.name]: Tabs,
+    // [TabPane.name]: TabPane,
+    // [Button.name]: Button,
+    // MapLocation: MapLocation
   },
   data () {
     return {
@@ -50,7 +52,6 @@ export default {
   },
   methods: {
     tripStartOnClick () {
-      console.log('-=-=')
       this.$router.push({ path: '/trip/map' })
     }
   }
@@ -124,6 +125,18 @@ export default {
     widows: 100%;
     height: 100%;
   }
+}
+.fademap-enter {
+  opacity: 0;
+}
+.fademap-enter-active {
+  transition: all 0.3s;
+}
+.fademap-leave-to {
+  opacity: 0;
+}
+.fademap-leave-active {
+  transition: all 0.3s;
 }
 </style>
 <style lang="scss">

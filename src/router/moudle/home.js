@@ -16,6 +16,11 @@ const HomeRoutes = [
       title: 'about',
       icon: 'about'
     }
+  },
+  {
+    path: '/test',
+    name: 'Test',
+    component: () => import('views/test.vue')
   }
 ]
 export default HomeRoutes

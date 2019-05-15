@@ -18,7 +18,7 @@ const tripRoutes = [
   {
     path: '/traffic',
     name: 'Traffic',
-    component: () => import('components/MapLocation/index'),
+    component: () => import('views/traffic/traffic'),
     meta: {
       title: '交通'
     }
