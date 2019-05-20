@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './moudle/home'
+// import store from '../store/index.js'
+import { Toast } from 'mand-mobile'
+import Test from './moudle/test'
 import Trip from './moudle/trip'
 import User from './moudle/user'
 import History from './moudle/history'
@@ -18,8 +20,19 @@ const commonRoutes = [
 ]
 
 /** 分模块的路由，合并传入Router */
-export default new Router({
+let router = new Router({
   // mode: 'history',
   base: process.env.BASE_URL,
-  routes: commonRoutes.concat(Home, Trip, User, History)
+  routes: commonRoutes.concat(Test, Trip, User, History)
 })
+// 导航守卫，非登录状态先登录
+router.beforeEach((to, from, next) => {
+  let tmp = localStorage.getItem('user')
+  if (!tmp && to.name !== 'Login') {
+    Toast.succeed('您需要先登录哦！', 1500)
+    next({ path: '/login' })
+    return
+  }
+  next()
+})
+export default router

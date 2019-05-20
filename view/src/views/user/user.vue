@@ -33,9 +33,9 @@
       <div class="user-tool">
         <div class="user-tool-title">我的信息</div>
         <div class="user-tool-box">
-          <p>
+          <p @click="toDetailOnClick">
             <svg-icon class="img-svg" icon-class="mileage"/>
-            <span>我的里程</span>
+            <span>信息总览</span>
           </p>
           <p>
             <svg-icon class="img-svg" icon-class="trend"/>
@@ -125,8 +125,12 @@ export default {
     ...mapGetters(['user'])
   },
   mounted () {
-    console.log(this.user)
     this.userData = this.user
+  },
+  methods: {
+    toDetailOnClick () {
+      this.$router.push({ path: '/userDetails' })
+    }
   }
 }
 </script>
@@ -195,9 +199,6 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        span:nth-child(1) {
-          // color:
-        }
       }
     }
   }
@@ -227,8 +228,6 @@ export default {
         .img-svg {
           font-size: 50px;
           margin: auto;
-        }
-        span {
         }
       }
     }

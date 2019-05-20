@@ -13,7 +13,7 @@
 <script>
 import btmNav from 'views/bottom_nav/btmNav'
 import { mapActions } from 'vuex'
-import { Toast } from 'mand-mobile'
+// import { Toast } from 'mand-mobile'
 export default {
   components: {
     btmNav: btmNav
@@ -23,13 +23,19 @@ export default {
     let tmpUser = localStorage.getItem('user')
     if (tmpUser) {
       this.setUser(JSON.parse(tmpUser))
+      // 请求用户里程数据
+      this.allDistanceAjax()
     } else {
-      Toast.succeed('您需要先登录哦！', 2000)
       this.$router.push({ path: '/login' })
     }
   },
   methods: {
-    ...mapActions(['setUser'])
+    allDistanceAjax () {
+      this.$http.get('/trip/allDistance', {}).then(res => {
+        this.setUserData(res.data.data)
+      })
+    },
+    ...mapActions(['setUser', 'setUserData'])
   }
 }
 </script>

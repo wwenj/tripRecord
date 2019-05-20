@@ -64,7 +64,12 @@
       <div id="panel"></div>
     </div>
     <!-- 确认层 -->
-    <md-dialog class="aaaaaaa" title="本次出行" :closable="true" v-model="sureDialog" :btns="btnDialog">
+    <md-dialog
+      title="本次出行"
+      :closable="true"
+      v-model="sureDialog"
+      :btns="btnDialog"
+    >
       <md-field class="dialog-field">
         <md-detail-item title="交通公交" :content="trafficType" bold/>
         <md-detail-item title="出发地" :content="searchStart"/>
@@ -74,6 +79,13 @@
           <md-stepper slot="right" v-model="spendValue" min="0"/>
         </md-field-item>
         <md-detail-item title="日期" :content="dateTime"/>
+        <md-input-item
+          id="markText"
+          v-model="markText"
+          title="备注"
+          placeholder="点此输入备注，少于20字"
+          :maxlength="20"
+        ></md-input-item>
       </md-field>
     </md-dialog>
     <!-- 选择出行方式 -->
@@ -119,8 +131,10 @@ export default {
       tripTypePopupShow: false, // 出行方式
       tripTypeMarriage: 'AMap.Transfer',
       trafficType: '公交/地铁',
+      markText: '', // 备注
       sureDialog: false, // 确认出行信息
       dateTime: getTime().date3,
+      distance: '0', // 第一条规划线路的路程
       btnDialog: [
         {
           text: '确认保存',
@@ -244,6 +258,7 @@ export default {
     },
     // 确认信息
     onIconConfirm () {
+      this.saveTripDataAjax()
       this.sureDialog = false
       // 清除信息
       this.driving.clear()
@@ -331,6 +346,8 @@ export default {
             if (status === 'complete') {
               console.log('绘制驾车路线完成')
               that.panelListShow = true
+              // 存第一条轨迹的路程
+              that.distance = (result.plans[0].distance / 1000).toFixed(2)
               //   that.isPanelShow = true
             } else {
               console.log('获取驾车数据失败：' + result)
@@ -374,19 +391,35 @@ export default {
       setTimeout(() => {
         Toast.hide()
       }, 15000)
+    },
+    /** ajax */
+    // 保存出行数据
+    saveTripDataAjax () {
+      console.log('确认')
+      let startCode = `${this.searchStartData.location.lng}, ${this.searchStartData.location.lat}`
+      let endCode = `${this.searchObjectiveData.location.lng}, ${this.searchObjectiveData.location.lat}`
+      let params = {
+        type: 'traffic',
+        tripType: this.trafficType,
+        distance: this.distance,
+        date: getTime().date2,
+        time: getTime().date4,
+        price: this.spendValue,
+        startPlace: this.searchStart,
+        endPlace: this.searchObjective,
+        startCode: startCode,
+        endCode: endCode,
+        mark: this.markText || '未备注'
+      }
+      console.log(params)
+      this.$http.get('/trip/addTraffic', params).then(res => {
+        if (res.data.code === 200) {
+          Toast.succeed('本次出行记录已上传')
+        } else {
+          Toast.failed('记录上传出错')
+        }
+      })
     }
-    // 获取时间
-    // getTime () {
-    //   let now = new Date()
-    //   let year = now.getFullYear() // 年
-    //   let month = now.getMonth() + 1 // 月
-    //   let day = now.getDate() // 日
-
-    //   let hh = now.getHours() // 时
-    //   let mm = now.getMinutes() // 分
-    //   let ss = now.getSeconds()
-    //   return `${year}年${month}月${day}日/${hh}:${mm}:${ss}`
-    // }
   }
 }
 </script>
@@ -552,14 +585,25 @@ export default {
 }
 .dialog-field {
   .md-field-item-content:before {
-    background-color: transparent ;
+    background-color: transparent;
   }
-  .md-field-item-title{
-      font-size: 3.733vw;
+  .md-field-item-title {
+    font-size: 3.733vw;
   }
-  .md-field-item-content{
-      min-height: 0;
-      padding: 12px 0;
+  .md-field-item-content {
+    min-height: 0;
+    padding: 12px 0;
+  }
+}
+#markText {
+  .md-input-item-fake,
+  .md-input-item-input {
+    height: 4.5vw;
+    color: #41485d;
+    font-size: 3.733vw;
+  }
+  .md-input-item-input {
+    text-align: right;
   }
 }
 </style>

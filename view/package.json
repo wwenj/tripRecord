@@ -12,6 +12,7 @@
     "core-js": "^2.6.5",
     "cssnano": "^4.1.10",
     "cssnano-preset-advanced": "^4.0.7",
+    "echarts": "^4.2.1",
     "express": "^4.16.4",
     "mand-mobile": "^2.2.1",
     "normalize.css": "^8.0.0",

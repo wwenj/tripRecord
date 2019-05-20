@@ -63,14 +63,34 @@ router.get('/allDistance', function (req, res, next) {
 router.get('/addTrip', function (req, res, next) {
     let query = req.query
     console.log(query)
-    console.log(`${query.tmpId},${query.type},${query.tripType},${query.distance},${query.date},${query.time},${query.Calorie},${query.speed}`)
     //增删改查之后查询，并把查询的最终数据返回前端
-    pool.query(`INSERT INTO trip_data ( userId, type,tripType,distance,date,time,trajectory,Calorie,speed) VALUES ('${query.userId}','${query.type}','${query.tripType}','${query.distance}','${query.date}','${query.time}','${query.trajectory}','${query.Calorie}','${query.speed}')`, function (err, results, fields) {
+    pool.query(`INSERT INTO trip_data ( userId, type,tripType,distance,date,time,trajectory,Calorie,speed,mark) VALUES ('${query.userId}','${query.type}','${query.tripType}','${query.distance}','${query.date}','${query.time}','${query.trajectory}','${query.Calorie}','${query.speed}','${query.mark}')`, function (err, results, fields) {
         if (err) {
             data.code = 500
             data.msg = err
-        }else{
-            data.data ='插入成功'
+        } else {
+            data.data = '插入成功'
+            data.code = 200
+        }
+        // 更改经纬度坐标数据类型
+        res.statusCode = 200;
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader('Content-Type', 'application/json');
+        res.json(data);
+    });
+})
+
+// 插入交通数据
+router.get('/addTraffic', function (req, res, next) {
+    let query = req.query
+    console.log(query)
+    //增删改查之后查询，并把查询的最终数据返回前端
+    pool.query(`INSERT INTO trip_data ( userId, type, tripType, distance, date, time, price, startPlace, endPlace, startCode, endCode, mark) VALUES ('${query.userId}','${query.type}','${query.tripType}','${query.distance}','${query.date}','${query.time}','${query.price}','${query.startPlace}','${query.endPlace}','${query.startCode}','${query.endCode}','${query.mark}')`, function (err, results, fields) {
+        if (err) {
+            data.code = 500
+            data.msg = err
+        } else {
+            data.data = '插入成功'
             data.code = 200
         }
         // 更改经纬度坐标数据类型

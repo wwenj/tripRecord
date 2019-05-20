@@ -78,6 +78,10 @@
             <span>消耗能量(k)</span>
           </p>
         </div>
+        <p v-if="isStratGo" class="strat-go-markText">备注：{{markText}}</p>
+        <md-field v-show="!isStratGo" class="strat-go-mark">
+          <md-input-item v-model="markText" title="备注" placeholder="输入此次行程备注，不超过40字" :maxlength="40"></md-input-item>
+        </md-field>
       </div>
     </transition>
   </div>
@@ -104,6 +108,7 @@ export default {
       timerObj: null, // 定时器实例
       timer: [0, 0, 0], // 时间计时器的时分秒
       timeAll: 0,
+      markText: '', // 备注
       geolocationData: [
         [126.567402, 43.923187],
         [126.567402, 43.923129],
@@ -161,10 +166,13 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$route.params.tripType)
     this.tripType = this.$route.params.tripType
-    this.createTrip()
-    this.ToastHide()
+    if (!this.tripType) {
+      this.$router.push({ path: '/trip' })
+    } else {
+      this.createTrip()
+      this.ToastHide()
+    }
   },
   methods: {
     /** action */
@@ -369,7 +377,7 @@ export default {
     ToastHide () {
       setTimeout(() => {
         Toast.hide()
-      }, 15000)
+      }, 10000)
     },
     /** ajax */
     saveTripDataAjax () {
@@ -381,13 +389,14 @@ export default {
         time: this.timerNow,
         trajectory: JSON.stringify(this.geolocationData),
         Calorie: this.kcalNow,
-        speed: this.speedNow
+        speed: this.speedNow,
+        mark: this.markText || '未备注'
       }
       console.log(params)
       this.$http.get('/trip/addTrip', params).then(res => {
         console.log(res)
         if (res.data.code === 200) {
-          Toast.succeed('记录已经成功')
+          Toast.succeed('本次出行记录已上传')
         } else {
           Toast.failed('记录上传出错')
         }
@@ -483,6 +492,7 @@ export default {
       justify-content: space-between;
       color: #555555;
       font-style: oblique;
+      height:70px;
       p {
         width: 100%;
         text-align: center;
@@ -496,11 +506,17 @@ export default {
         }
       }
     }
+    &-mark{
+      margin-top: 70px;
+    }
+    &-markText{
+      padding: 20px;
+    }
   }
 }
 #stratGo {
   transition: all 0.4s;
-  height: 30%;
+  height: 35%;
   background: #ffffff;
   box-shadow: 0 4px 50px #afaeae;
   .strat-go-top {
@@ -555,5 +571,18 @@ export default {
 }
 .fadeStart-enter-active {
   transition: all 0.4s;
+}
+</style>
+<style lang="scss">
+.strat-go {
+  .md-field {
+    background: transparent;
+  }
+  .md-field-item-content:before {
+    background: #4b4949;
+  }
+  .md-field-item.is-solid .md-field-item-title{
+    width: 10vw;
+  }
 }
 </style>

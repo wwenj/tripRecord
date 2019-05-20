@@ -43,7 +43,7 @@ export default {
     }
   },
   mounted () {
-    // this.loginAjax()
+    // Toast.succeed('您需要先登录哦！', 1500)
   },
   methods: {
     /** action */
@@ -63,11 +63,17 @@ export default {
         localStorage.setItem('user', tmpUser)
         // 存到vuex
         this.setUser(this.userData)
+        this.allDistanceAjax()
         Toast.succeed(`欢迎回来，${this.userData.name}`, 1500)
         this.$router.push({ path: '/trip' })
       })
     },
-    ...mapActions(['setUser'])
+    allDistanceAjax () {
+      this.$http.get('/trip/allDistance', {}).then(res => {
+        this.setUserData(res.data.data)
+      })
+    },
+    ...mapActions(['setUser', 'setUserData'])
   }
 }
 </script>

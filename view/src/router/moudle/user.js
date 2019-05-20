@@ -14,6 +14,14 @@ const tripUser = [
     meta: {
       title: '我的'
     }
+  },
+  {
+    path: '/userDetails',
+    name: 'UserDetails',
+    component: () => import('views/user/userDetails'),
+    meta: {
+      title: '我的信息'
+    }
   }
 ]
 export default tripUser
