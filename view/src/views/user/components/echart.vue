@@ -16,10 +16,15 @@ export default {
     // this.initChart()
   },
   methods: {
-    initChart (data) {
+    initChart (data, text) {
       this.chart = echarts.init(document.getElementById('main'))
       this.chart.setOption({
-        tooltip: {},
+        tooltip: {
+        },
+        title: {
+          text: text,
+          top: '5%'
+        },
         xAxis: {
           data: ['徒步', '跑步', '骑行', '自驾', '公交', '出租']
         },
@@ -30,6 +35,13 @@ export default {
           // itemStyle: {
           // color: 'yellow'
           // },
+          grid: {
+            left: '2%',
+            right: '4%',
+            bottom: '0%',
+            top: '0%',
+            containLabel: true
+          },
           itemStyle: {
             normal: {
               color: new echarts.graphic.LinearGradient(
@@ -80,7 +92,7 @@ export default {
 <style lang="scss" scoped>
 .echarts{
     width: 100%;
-    height: 100%;
+    height: 550px;
     box-sizing: border-box;
     &-canvas{
         width: 100%;

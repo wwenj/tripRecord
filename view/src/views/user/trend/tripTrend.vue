@@ -14,6 +14,7 @@
 </template>
 <script>
 import lineChart from './lineChart'
+import { Toast } from 'mand-mobile'
 export default {
   name: 'Trend',
   components: {
@@ -89,22 +90,15 @@ export default {
     }
   },
   mounted () {
+    Toast.loading('数据分析中...')
     this.fetchData()
   },
   methods: {
     // 重新封装数据，对接echart、
     updatefetchData () {
       let day = (new Date()).getDate()
-      let tmpDate = {}
       let tmpItem = {}
-      // this.allData.forEach((item) => {
-      //   item.date = item.date.slice(8, 10)
-      //   if (!tmpDate[item.date]) {
-      //     tmpDate[item.date] = []
-      //   }
-      //   tmpDate[item.date].push(item)
-      // })
-      // console.log(tmpDate)
+      // 出行工具为key的拆分
       this.allData.forEach((item) => {
         item.date = parseInt(item.date.slice(8, 10)) + 1
         item.tripType = item.tripType.slice(0, 2)
@@ -132,7 +126,7 @@ export default {
           }
         }
       })
-      // console.log(tmpItem)
+      // data值的数据拆分
       this.xAxisData = Object.keys(tmpItem['公交'].data).join().split(',')
       this.xAxisData.forEach((item, index) => {
         this.xAxisData[index] = item + '日'
@@ -153,8 +147,10 @@ export default {
       }
       this.$refs.echart1.echartsUpdata(this.trafficData, this.xAxisData)
       this.$refs.echart2.echartsUpdata(this.tripData, this.xAxisData)
+      Toast.hide()
     },
     /** ajax */
+    // 请求最近一周数据
     fetchData () {
       this.$http.get('/user/tripTrend', {}).then(res => {
         // console.log(res.data.data)

@@ -34,7 +34,7 @@ const tripUser = [
   {
     path: '/analysis',
     name: 'Analysis',
-    component: () => import('views/user/dataAnalysis'),
+    component: () => import('views/user/analysis1/dataAnalysis'),
     meta: {
       title: '数据分析'
     }
