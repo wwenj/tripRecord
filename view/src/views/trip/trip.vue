@@ -1,7 +1,7 @@
 <template>
   <div class="trip">
     <!-- <MapLocation></MapLocation> -->
-    <div v-if="$route.name !== 'Map'" class="trip-box">
+    <div v-show="$route.name !== 'Map'" class="trip-box">
       <img class="trip-bg" src="../../assets/img/bg.png" alt>
       <div class="trip-con">
         <md-tabs v-model="TripWay">

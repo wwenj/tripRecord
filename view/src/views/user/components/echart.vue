@@ -4,7 +4,8 @@
   </div>
 </template>
 <script>
-var echarts = require('echarts')
+// var echarts = require('echarts')
+import echarts from 'echarts'
 export default {
   data () {
     return {

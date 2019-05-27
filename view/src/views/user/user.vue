@@ -33,15 +33,15 @@
       <div class="user-tool">
         <div class="user-tool-title">我的信息</div>
         <div class="user-tool-box">
-          <p @click="toDetailOnClick">
+          <p @click="toDetailOnClick('userDetails')">
             <svg-icon class="img-svg" icon-class="mileage"/>
             <span>信息总览</span>
           </p>
-          <p>
+          <p @click="toDetailOnClick('trend')">
             <svg-icon class="img-svg" icon-class="trend"/>
             <span>出行趋势</span>
           </p>
-          <p>
+          <p @click="toDetailOnClick('analysis')">
             <svg-icon class="img-svg" icon-class="Analysis"/>
             <span>数据分析</span>
           </p>
@@ -128,8 +128,8 @@ export default {
     this.userData = this.user
   },
   methods: {
-    toDetailOnClick () {
-      this.$router.push({ path: '/userDetails' })
+    toDetailOnClick (item) {
+      this.$router.push({ path: `/${item}` })
     }
   }
 }

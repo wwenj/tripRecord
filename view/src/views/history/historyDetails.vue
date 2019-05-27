@@ -80,7 +80,7 @@ export default {
   },
   mounted () {
     this.data = this.$route.params
-    console.log(this.$route)
+    // console.log(this.$route)
     this.initMap()
     if (this.data.type === 'trip') {
       // 画行走轨迹图
@@ -90,6 +90,7 @@ export default {
       // 或路线规划图
       this.searchDriving()
     }
+    // this.data.date = this.data.date.slice(0, 10)
   },
   methods: {
     initMap () {

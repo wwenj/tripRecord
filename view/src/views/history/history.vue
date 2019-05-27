@@ -37,6 +37,9 @@ export default {
       let that = this
       this.$http.get('/trip/historyList', {}).then(res => {
         that.historyList = res.data.data
+        that.historyList.forEach((item) => {
+          item.date = item.date.slice(0, 10).split('-').join('/')
+        })
       })
     }
   }

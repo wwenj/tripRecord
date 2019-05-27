@@ -22,6 +22,22 @@ const tripUser = [
     meta: {
       title: '我的信息'
     }
+  },
+  {
+    path: '/trend',
+    name: 'Trend',
+    component: () => import('views/user/trend/tripTrend'),
+    meta: {
+      title: '出行趋势'
+    }
+  },
+  {
+    path: '/analysis',
+    name: 'Analysis',
+    component: () => import('views/user/dataAnalysis'),
+    meta: {
+      title: '数据分析'
+    }
   }
 ]
 export default tripUser
