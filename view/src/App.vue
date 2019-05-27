@@ -48,6 +48,7 @@ export default {
   overflow: auto;
   position: relative;
   color: #555555;
+  font-size: 24px;
 }
 .text-container {
   background: #fff;

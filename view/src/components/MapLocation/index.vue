@@ -91,6 +91,7 @@
 import { Toast } from 'mand-mobile'
 import { setInterval, clearInterval } from 'timers'
 import { getTime } from 'utils/validate.js'
+import { mapActions } from 'vuex'
 export default {
   name: 'mapLocation',
   data () {
@@ -224,7 +225,7 @@ export default {
         function (position) {
           let gps = [position.coords.longitude, position.coords.latitude]
           console.log('实时定位中---')
-          console.log(gps)
+          // console.log(gps)
           let p1 =
             that.geolocationData.length > 0
               ? that.geolocationData[that.geolocationData.length - 1].toString()
@@ -233,8 +234,19 @@ export default {
           if (p1 === p2) {
             console.log('定位距离过近')
           } else {
-            that.geolocationData.push(gps)
-            that.mapLoactionDistance(that.geolocationData)
+            // 存放轨迹经纬度坐标，经纬度坐标转换
+            window.AMap.convertFrom(gps, 'gps', function (status, result) {
+              if (result.info === 'ok') {
+                let tmpGps = [result.locations[0].Q, result.locations[0].P]
+                console.log(tmpGps)
+                that.geolocationData.push(tmpGps)
+                that.mapLoactionDistance(that.geolocationData)
+              } else {
+                console.log('轨迹路径经纬度转换失败！！')
+              }
+            })
+            // that.geolocationData.push(gps)
+            // that.mapLoactionDistance(that.geolocationData)
           }
         },
         function () {
@@ -243,6 +255,7 @@ export default {
         }
       )
     },
+
     // 创建地图实例
     createTrip () {
       Toast.loading('加载中...')
@@ -397,11 +410,18 @@ export default {
         console.log(res)
         if (res.data.code === 200) {
           Toast.succeed('本次出行记录已上传')
+          this.setUserData(res.data.data)
         } else {
           Toast.failed('记录上传出错')
         }
       })
-    }
+    },
+    // allDistanceAjax () {
+    //   this.$http.get('/trip/allDistance', {}).then(res => {
+    //     this.setUserData(res.data.data)
+    //   })
+    // },
+    ...mapActions(['setUserData'])
   }
 }
 </script>
@@ -501,7 +521,7 @@ export default {
           font-weight: bold;
         }
         span:nth-child(3) {
-          font-size: 12px;
+          font-size: 24px;
           font-style: initial;
         }
       }
@@ -511,6 +531,7 @@ export default {
     }
     &-markText{
       padding: 20px;
+      font-size: 24px;
     }
   }
 }
@@ -536,7 +557,7 @@ export default {
         font-weight: bold;
       }
       span:nth-child(3) {
-        font-size: 10px;
+        font-size: 24px;
         font-style: initial;
       }
     }

@@ -27,12 +27,13 @@
 </template>
 <script>
 // import { Tabs, TabPane, Button } from 'mand-mobile'
+import { mapGetters } from 'vuex'
 export default {
   name: 'trip',
   data () {
     return {
       TripWay: '徒步', // 出行方式
-      allDistanceData: null, // 当前出行总里程
+      // allDistanceData: null, // 当前出行总里程
       distance: '0.0',
       wayData: {
         p1: '徒步',
@@ -42,8 +43,25 @@ export default {
       }
     }
   },
+  computed: {
+    allDistanceData () {
+      return this.userDistance
+    },
+    ...mapGetters(['userDistance'])
+  },
   watch: {
-    TripWay (val) {
+    '$route' (to) {
+      this.updataDistance(this.TripWay)
+    },
+    TripWay: {
+      handler (val) {
+        this.updataDistance(val)
+      },
+      immediate: true
+    }
+  },
+  methods: {
+    updataDistance (val) {
       switch (val) {
         case '徒步':
           this.distance = this.allDistanceData.allWalk
@@ -58,22 +76,17 @@ export default {
           this.distance = this.allDistanceData.allDrive
           break
       }
-    }
-  },
-  mounted () {
-    this.allDistanceAjax()
-  },
-  methods: {
+    },
     tripStartOnClick () {
       this.$router.push({ name: 'Map', params: { tripType: this.TripWay } })
-    },
-    /** ajax */
-    allDistanceAjax () {
-      this.$http.get('/trip/allDistance', {}).then(res => {
-        this.allDistanceData = res.data.data
-        this.distance = this.allDistanceData.allWalk
-      })
     }
+    /** ajax */
+    // allDistanceAjax () {
+    //   this.$http.get('/trip/allDistance', {}).then(res => {
+    //     this.allDistanceData = res.data.data
+    //     this.distance = this.allDistanceData.allWalk
+    //   })
+    // }
   }
 }
 </script>

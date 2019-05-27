@@ -250,7 +250,7 @@ export default {
         font-weight: bold;
       }
       span:nth-child(3) {
-        font-size: 10px;
+        font-size: 24px;
         font-style: initial;
       }
     }

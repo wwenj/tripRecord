@@ -110,6 +110,7 @@
 // import { setTimeout, clearTimeout } from 'timers'
 import { Toast } from 'mand-mobile'
 import { getTime } from 'utils/validate.js'
+import { mapActions } from 'vuex'
 export default {
   name: 'traffic',
   data () {
@@ -347,7 +348,11 @@ export default {
               console.log('绘制驾车路线完成')
               that.panelListShow = true
               // 存第一条轨迹的路程
-              that.distance = (result.plans[0].distance / 1000).toFixed(2)
+              if (result.plans) {
+                that.distance = (result.plans[0].distance / 1000).toFixed(2)
+              } else {
+                that.distance = (result.routes[0].distance / 1000).toFixed(2)
+              }
               //   that.isPanelShow = true
             } else {
               console.log('获取驾车数据失败：' + result)
@@ -369,7 +374,7 @@ export default {
         function () {
           var geolocation = new window.AMap.Geolocation({
             enableHighAccuracy: true, // 是否使用高精度定位，默认:true
-            timeout: 10000, // 超过10秒后停止定位，默认：5s
+            timeout: 15000, // 超过10秒后停止定位，默认：5s
             buttonPosition: 'RB', // 定位按钮的停靠位置
             buttonOffset: new window.AMap.Pixel(100, 20), // 定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
             zoomToAccuracy: true // 定位成功后是否自动调整地图视野到定位点
@@ -415,11 +420,13 @@ export default {
       this.$http.get('/trip/addTraffic', params).then(res => {
         if (res.data.code === 200) {
           Toast.succeed('本次出行记录已上传')
+          this.setUserData(res.data.data)
         } else {
           Toast.failed('记录上传出错')
         }
       })
-    }
+    },
+    ...mapActions(['setUserData'])
   }
 }
 </script>
