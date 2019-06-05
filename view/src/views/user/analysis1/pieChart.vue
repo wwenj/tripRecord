@@ -39,16 +39,16 @@ export default {
             radius: '55%',
             center: ['50%', '60%'],
             data: [
-              { value: 335, name: '步行' },
-              { value: 310, name: '跑步' },
-              { value: 234, name: '单车/电车' },
-              { value: 135, name: '自驾/出租' },
-              { value: 1548, name: '公交/地铁' }
-              // { value: data.allWalk, name: '步行' },
-              // { value: data.allRun, name: '跑步' },
-              // { value: data.allCycle, name: '单车/电车' },
-              // { value: parseInt(data.allDrive) + parseInt(data.allTaxi), name: '自驾/出租' },
-              // { value: data.allBus, name: '公交/地铁' }
+            //   { value: 335, name: '步行' },
+            //   { value: 310, name: '跑步' },
+            //   { value: 234, name: '单车/电车' },
+            //   { value: 135, name: '自驾/出租' },
+            //   { value: 1548, name: '公交/地铁' }
+              { value: data.allWalk, name: '步行' },
+              { value: data.allRun, name: '跑步' },
+              { value: data.allCycle, name: '单车/电车' },
+              { value: parseInt(data.allDrive) + parseInt(data.allTaxi), name: '自驾/出租' },
+              { value: data.allBus, name: '公交/地铁' }
             ],
             itemStyle: {
               emphasis: {

@@ -51,4 +51,31 @@ router.post('/', function (req, res, next) {
     })
   }
 })
+// 获取最近一周
+router.get('/tripTrend', function (req, res, next) {
+  let tmpId = req.query.userId
+  //增删改查之后查询，并把查询的最终数据返回前端
+
+  pool.query(`SELECT * FROM trip_data where userId=${tmpId} and DATE_SUB(CURDATE(), INTERVAL 6 DAY) <= date(date)`, function (err, results, fields) {
+      if (err) {
+          data.code = 500
+          data.msg = err
+      };
+      // 更改经纬度坐标数据类型
+      results.forEach((item) => {
+          if (item.trajectory) {
+              item.trajectory = JSON.parse(item.trajectory)
+          }
+          if (item.startCode) {
+              item.startCode = item.startCode.split(',')
+              item.endCode = item.endCode.split(',')
+          }
+      })
+      data.data = results.reverse()
+      res.statusCode = 200;
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader('Content-Type', 'application/json');
+      res.json(data);
+  });
+})
 module.exports = router;

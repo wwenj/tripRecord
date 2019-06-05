@@ -126,11 +126,14 @@ export default {
           }
         }
       })
+      console.log('-------')
+      console.log(tmpItem)
       // data值的数据拆分
       this.xAxisData = Object.keys(tmpItem['公交'].data).join().split(',')
       this.xAxisData.forEach((item, index) => {
         this.xAxisData[index] = item + '日'
       })
+      // console.log(this.xAxisData)
       for (let item in tmpItem) {
         tmpItem[item].data = Object.values(tmpItem[item].data).join().split(',')
       }
@@ -153,9 +156,12 @@ export default {
     // 请求最近一周数据
     fetchData () {
       this.$http.get('/user/tripTrend', {}).then(res => {
-        // console.log(res.data.data)
+        console.log(res.data.data)
         this.allData = res.data.data
-        this.updatefetchData()
+        this.$refs.echart1.echartsUpdata(this.data1, this.xAxisData)
+        this.$refs.echart2.echartsUpdata(this.data2, this.xAxisData)
+        Toast.hide()
+        // this.updatefetchData()
       })
     }
   }
