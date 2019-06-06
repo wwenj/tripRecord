@@ -7,9 +7,16 @@
 ## 项目截图
 
 **私人出行**
-
-![](https://raw.githubusercontent.com/wwenj/MyPicture/master/images/1_meitu_2.jpg)
-![](https://raw.githubusercontent.com/wwenj/MyPicture/master/images/2.jpg)
+![](https://raw.githubusercontent.com/wwenj/MyPicture/master/tripRecord/1.jpg)
+![](https://raw.githubusercontent.com/wwenj/MyPicture/master/tripRecord/2.jpg)
+**公共交通**
+![](https://raw.githubusercontent.com/wwenj/MyPicture/master/tripRecord/3.jpg)
+![](https://raw.githubusercontent.com/wwenj/MyPicture/master/tripRecord/4.jpg)
+**历史列表**
+![](https://raw.githubusercontent.com/wwenj/MyPicture/master/tripRecord/5.jpg)
+**我的信息**
+![](https://raw.githubusercontent.com/wwenj/MyPicture/master/tripRecord/6.jpg)
+![](https://raw.githubusercontent.com/wwenj/MyPicture/master/tripRecord/7.jpg)
 
 ## 技术栈
 
