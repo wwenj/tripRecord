@@ -6,9 +6,10 @@
 
 ## 项目截图
 
-**推荐页，排行页，歌手页**
+**私人出行**
 
 ![](https://raw.githubusercontent.com/wwenj/MyPicture/master/images/1_meitu_2.jpg)
+![](https://raw.githubusercontent.com/wwenj/MyPicture/master/images/2.jpg)
 
 ## 技术栈
 
