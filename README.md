@@ -96,6 +96,7 @@
 ### 补充
 
  服务器还在调整，环境搭建好后会上传到线上
+ 注：因为马上毕业，这只是为了应对毕业设计临时写的小项目，没想到会有这么多star，时间有限主要实现核心功能，产品还是很粗糙，我会找时间完善下，谢谢
 
 ## 项目运行
 
@@ -111,7 +112,7 @@ npm install
 # 导入mysql数据库表
 
 # view下前端项目 打开端口localhost:8080
-npm run server
+npm run serve
 
 # serve下运行后端项目（必须先导入数据库表）
 DEBUG=myapp:* npm start
