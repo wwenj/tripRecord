@@ -9,9 +9,9 @@ var data = {
 }; //最后返回的json对象
 
 var pool = mysql.createPool({
-  host: 'localhost',
+  host: '39.106.8.114',
   user: 'root',
-  password: '8151186051',
+  password: 'mysql815118',
   database: 'trip'
 });
 router.post('/', function (req, res, next) {
