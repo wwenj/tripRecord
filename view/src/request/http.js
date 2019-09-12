@@ -55,7 +55,7 @@ var request = (options) => {
   }
   // 表单传值参数格式化
   return axios.request({
-    url: `http://localhost:3000${options.url}`,
+    url: `http://39.106.8.114:3000${options.url}`,
     method: options.method,
     data: options.body,
     params: options.params
