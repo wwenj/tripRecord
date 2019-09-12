@@ -30,6 +30,7 @@ module.exports = {
         symbolId: 'icon-[name]'
       })
   },
+  publicPath: './',
   /** 开发环境代理 */
   devServer: {
     open: true,
