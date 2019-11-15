@@ -55,6 +55,7 @@ var request = (options) => {
   }
   // 表单传值参数格式化
   return axios.request({
+    // 访问线上接口，如需访问本地服务器，改成localhost或自己服务器ip
     url: `http://39.106.8.114:3000${options.url}`,
     method: options.method,
     data: options.body,
