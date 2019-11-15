@@ -1,6 +1,6 @@
 <template>
-  <div class="history">
-    <div v-if="$route.name === 'History'">
+  <div class="history-box">
+    <div class="history" v-if="$route.name === 'History'">
       <div class="history-title" style="z-index:200">
         <span>出行历史</span>
         <svg-icon class="title-svg" icon-class="history-list"/>
@@ -47,7 +47,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.history {
+.history{
+  width: 100%;
+  height: calc(100% - 100px);
+  overflow: auto;
+}
+.history-box {
   width: 100%;
   height: 100%;
   &-title {

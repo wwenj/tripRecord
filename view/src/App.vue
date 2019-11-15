@@ -1,13 +1,11 @@
 <template>
-  <div id="app">
-    <div class="box">
-      <!-- <md-water-mark class="text-container" :content="markContent" spacing="10vw"> -->
-      <transition name="fademap">
-        <router-view/>
-      </transition>
-      <!-- </md-water-mark> -->
-    </div>
-    <btmNav></btmNav>
+  <div id="app" class="box">
+    <!-- <md-water-mark class="text-container" :content="markContent" spacing="10vw"> -->
+    <transition name="fademap">
+      <router-view />
+    </transition>
+    <!-- </md-water-mark> -->
+    <btmNav v-show="btmNavShow"></btmNav>
   </div>
 </template>
 <script>
@@ -18,7 +16,18 @@ export default {
   components: {
     btmNav: btmNav
   },
+  data () {
+    return {
+      showList: ['/trip', '/traffic', '/history', '/user']
+    }
+  },
+  computed: {
+    btmNavShow () {
+      return this.showList.indexOf(this.$route.path) !== -1
+    }
+  },
   mounted () {
+    console.log(this.$route)
     // 验证本地是否已经登录过
     let tmpUser = localStorage.getItem('user')
     if (tmpUser) {
@@ -43,9 +52,9 @@ export default {
 <style>
 @import "style/reset.css";
 .box {
-  width: 100%;
-  height: calc(100vh-100px);
-  overflow: auto;
+  width: 100vw;
+  height: calc(100vh);
+  overflow: hidden;
   position: relative;
   color: #555555;
   font-size: 24px;

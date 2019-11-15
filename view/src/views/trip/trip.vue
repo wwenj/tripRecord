@@ -2,7 +2,7 @@
   <div class="trip">
     <!-- <MapLocation></MapLocation> -->
     <div v-show="$route.name !== 'Map'" class="trip-box">
-      <img class="trip-bg" src="../../assets/img/bg.png" alt>
+      <img class="trip-bg" src="../../assets/img/bg.jpg" alt>
       <div class="trip-con">
         <md-tabs v-model="TripWay">
           <md-tab-pane name="徒步" label="徒步"></md-tab-pane>
@@ -94,7 +94,7 @@ export default {
 <style lang="scss" scoped>
 .trip {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 100px);
   position: relative;
   .trip-bg {
     width: 100%;

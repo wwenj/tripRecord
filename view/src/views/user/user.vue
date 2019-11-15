@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <img class="user-bgimg" src="../../assets/img/user-bg.png">
+    <img class="user-bgimg" src="../../assets/img/user-bg.jpg">
     <div class="user-con">
       <div v-if="userData" class="user-title">
         <div class="user-title-top">
@@ -138,7 +138,7 @@ export default {
 <style lang="scss" scoped>
 .user {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 100px);
   position: relative;
   color: #363030;
   &-bgimg {

@@ -433,7 +433,7 @@ export default {
 <style lang="scss">
 .traffic {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 100px);
   overflow: hidden;
   position: relative;
   .search {

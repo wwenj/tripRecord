@@ -4,7 +4,7 @@
       <template slot="item" slot-scope="{ item }">
         <div class="custom-item">
           <div class="icon">
-            <md-icon :name="item.icon"/>
+            <md-icon :name="item.icon" />
           </div>
           <div class="text">
             <span v-text="item.label"></span>
@@ -59,6 +59,10 @@ export default {
 .btm-nav {
   width: 100%;
   height: 100px;
+  background-color: #fff;
+  z-index: 100;
+  position: absolute;
+  bottom: 0;
   // border:1px solid black;
 }
 .icon {

@@ -45,6 +45,7 @@ export default {
 .analysis {
   width: 100%;
   height: 100%;
+  overflow: auto;
   padding: 30px;
   box-sizing: border-box;
   &-title {

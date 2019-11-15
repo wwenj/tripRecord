@@ -1,6 +1,6 @@
 <template>
   <div class="me">
-    <img class="me-bgimg" src="../../assets/img/user-bg.png">
+    <img class="me-bgimg" src="../../assets/img/user-bg.jpg">
     <div v-if="userData" class="me-top">
       <span @click="loginOutOnClick" class="me-top-outbtn">退出登录</span>
       <img class="me-top-heaimg" :src="userData.img" alt>
