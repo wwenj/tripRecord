@@ -128,7 +128,8 @@ export default {
         // [126.569172, 43.924199]
       ], // 开始定位后设备移动收集的所有经纬坐标
       distance: 0, // 当前移动公里数
-      tripType: '徒步' // 出行方式
+      tripType: '徒步', // 出行方式
+      loactionFail: true // 定位成功失败
     }
   },
   computed: {
@@ -191,6 +192,10 @@ export default {
     },
     // 点击开始
     startGoOnClick () {
+      if (!this.loactionFail) {
+        Toast.failed('定位失败，请检查权限或尝试刷新')
+        return
+      }
       if (this.startBtn === '开始') {
         this.addressPopupShow = false
         this.mapPopupShow = false
@@ -206,6 +211,10 @@ export default {
         this.mapPath() // 绘制轨迹
         this.startBtn = '退出'
         // 存入后台
+        if (this.distance === 0) {
+          Toast.failed('当前移动距离为0，数据不被上传')
+          return
+        }
         this.saveTripDataAjax()
       } else {
         this.map.destroy() // 销毁地图
@@ -220,6 +229,7 @@ export default {
     /** private */
     // h5实时定位，记录每条定位，绘制轨迹图
     watchMap () {
+      console.log('开始实时定位========')
       let that = this
       this.watchID = navigator.geolocation.watchPosition(
         function (position) {
@@ -351,6 +361,7 @@ export default {
     },
     // 监听手动定位成功
     localOnComplete (e) {
+      this.loactionFail = true
       console.log('手动定位成功')
       console.log(e)
       this.mapData = e.addressComponent
@@ -359,10 +370,11 @@ export default {
     },
     // 手动定位失败
     localOnError (e) {
+      this.loactionFail = false
       console.log('手动定位出错')
       console.log(e)
       Toast.hide()
-      Toast.failed('定位失败请尝试刷新')
+      Toast.failed('定位失败请检查权限或尝试刷新')
     },
     // 停止实时定位
     locationOnDelete () {

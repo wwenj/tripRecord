@@ -80,6 +80,7 @@ export default {
   },
   mounted () {
     this.data = this.$route.params
+    console.log(this.$route)
     // console.log(this.$route)
     this.initMap()
     if (this.data.type === 'trip') {

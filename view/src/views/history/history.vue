@@ -85,11 +85,11 @@ export default {
   .box {
     height: 90px;
   }
+}
   .trip-map {
     width: 100%;
     height: 100%;
   }
-}
 </style>
 <style lang="scss">
 .history {
