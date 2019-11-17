@@ -3,15 +3,23 @@
     <div class="history" v-if="$route.name === 'History'">
       <div class="history-title" style="z-index:200">
         <span>出行历史</span>
-        <svg-icon class="title-svg" icon-class="history-list"/>
+        <svg-icon class="title-svg" icon-class="history-list" />
       </div>
       <div class="box"></div>
       <md-field>
-        <md-cell-item @click="historyDetailsOnClick(item)" v-for="(item,index) in historyList" :key="index" :title="item.tripType" :brief="item.startPlace?`${item.startPlace}—${item.endPlace}`:`行程${item.distance}公里`" :addon="item.date" arrow/>
+        <md-cell-item
+          @click="historyDetailsOnClick(item)"
+          v-for="(item,index) in historyList"
+          :key="index"
+          :title="item.tripType"
+          :brief="item.startPlace?`${item.startPlace}—${item.endPlace}`:`行程${item.distance}公里`"
+          :addon="item.date"
+          arrow
+        />
       </md-field>
     </div>
     <div v-show="$route.name === 'Details'" class="trip-map">
-      <router-view/>
+      <router-view />
     </div>
   </div>
 </template>
@@ -37,8 +45,11 @@ export default {
       let that = this
       this.$http.get('/trip/historyList', {}).then(res => {
         that.historyList = res.data.data
-        that.historyList.forEach((item) => {
-          item.date = item.date.slice(0, 10).split('-').join('/')
+        that.historyList.forEach(item => {
+          item.date = item.date
+            .slice(0, 10)
+            .split('-')
+            .join('/')
         })
       })
     }
@@ -47,14 +58,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.history{
-  width: 100%;
-  height: calc(100% - 100px);
-  overflow: auto;
-}
 .history-box {
   width: 100%;
   height: 100%;
+}
+.history {
+  width: 100%;
+  height: calc(100% - 100px);
+  overflow: auto;
   &-title {
     width: 100%;
     color: #363030;
@@ -74,7 +85,7 @@ export default {
   .box {
     height: 90px;
   }
-  .trip-map{
+  .trip-map {
     width: 100%;
     height: 100%;
   }

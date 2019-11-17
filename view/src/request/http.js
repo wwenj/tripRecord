@@ -3,14 +3,14 @@ import axios from 'axios'
 import { stringify } from 'qs' // 引入qs模块，用来序列化post类型的数据
 import { Toast } from 'mand-mobile' // 引入mand弹出提示
 import store from '../store/index.js'
-
 let tmpTrip = store.state.trip
-// axios https://www.kancloud.cn/yunye/axios/234845
-// if (process.env.NODE_ENV === 'development') {
-//   axios.defaults.baseURL = 'http://'
-// } else if (process.env.NODE_ENV === 'production') {
-//   axios.defaults.baseURL = 'http://'
-// }
+
+if (process.env.NODE_ENV === 'development') {
+  // 开发环境会访问线上接口，如需访问本地服务器，改成localhost或自己服务器ip
+  axios.defaults.baseURL = 'http://39.106.8.114:3000'
+} else if (process.env.NODE_ENV === 'production') {
+  axios.defaults.baseURL = 'http://39.106.8.114:3000'
+}
 axios.defaults.timeout = 10000 // 请求超时设置
 axios.defaults.withCredentials = false // 表示跨域请求时是否需要使用凭证,默认否
 // 添加请求拦截器
@@ -55,8 +55,7 @@ var request = (options) => {
   }
   // 表单传值参数格式化
   return axios.request({
-    // 访问线上接口，如需访问本地服务器，改成localhost或自己服务器ip
-    url: `http://39.106.8.114:3000${options.url}`,
+    url: options.url,
     method: options.method,
     data: options.body,
     params: options.params

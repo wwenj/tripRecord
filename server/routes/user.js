@@ -1,19 +1,22 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-
+var ACC = require('../account');
 
 var data = {
   code: 200,
   msg: 'success'
 }; //最后返回的json对象
 
-var pool = mysql.createPool({
-  host: '39.106.8.114',
-  user: '**',
-  password: '**',
-  database: 'trip'
-});
+var pool = mysql.createPool(
+  ACC.mysql
+  // {
+  //     host: '39.**.*.114',
+  //     user: '**',
+  //     password: '**',
+  //     database: '**'
+  // }
+);
 router.post('/', function (req, res, next) {
   let userName = req.body.userName
   let passWord = req.body.passWord

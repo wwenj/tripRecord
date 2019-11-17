@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-
+var ACC = require('../account');
 
 var data = {
     code: 200,
@@ -16,12 +16,15 @@ var allDistanceData = {
     allTaxi: 0,
     allWalk: 0
 }
-var pool = mysql.createPool({
-    host: '39.106.8.114',
-    user: '**',
-    password: '**',
-    database: 'trip'
-});
+var pool = mysql.createPool(
+    ACC.mysql
+    // {
+    //     host: '39.**.*.114',
+    //     user: '**',
+    //     password: '**',
+    //     database: '**'
+    // }
+);
 /* GET users listing. */
 // 历史列表接口
 router.get('/historyList', function (req, res, next) {
@@ -73,17 +76,17 @@ router.get('/allDistance', function (req, res, next) {
 router.get('/addTrip', function (req, res, next) {
     let query = req.query
     if (query.tripType === '徒步出行') {
-        allDistanceData.allWalk = (Number(allDistanceData.allWalk)+Number(query.distance)).toFixed(2)
-        allDistanceUpdate('allWalk',allDistanceData.allWalk,query.userId)
+        allDistanceData.allWalk = (Number(allDistanceData.allWalk) + Number(query.distance)).toFixed(2)
+        allDistanceUpdate('allWalk', allDistanceData.allWalk, query.userId)
     } else if (query.tripType === '跑步出行') {
-        allDistanceData.allRun = (Number(allDistanceData.allRun)+Number(query.distance)).toFixed(2)
-        allDistanceUpdate('allRun',allDistanceData.allRun,query.userId)
+        allDistanceData.allRun = (Number(allDistanceData.allRun) + Number(query.distance)).toFixed(2)
+        allDistanceUpdate('allRun', allDistanceData.allRun, query.userId)
     } else if (query.tripType === '骑车出行') {
-        allDistanceData.allCycle = (Number(allDistanceData.allCycle)+Number(query.distance)).toFixed(2)
-        allDistanceUpdate('allCycle',allDistanceData.allCycle,query.userId)
+        allDistanceData.allCycle = (Number(allDistanceData.allCycle) + Number(query.distance)).toFixed(2)
+        allDistanceUpdate('allCycle', allDistanceData.allCycle, query.userId)
     } else if (query.tripType === '自驾出行') {
-        allDistanceData.allDrive = (Number(allDistanceData.allDrive)+Number(query.distance)).toFixed(2)
-        allDistanceUpdate('allDrive',allDistanceData.allDrive,query.userId)
+        allDistanceData.allDrive = (Number(allDistanceData.allDrive) + Number(query.distance)).toFixed(2)
+        allDistanceUpdate('allDrive', allDistanceData.allDrive, query.userId)
     }
     //增删改查之后查询，并把查询的最终数据返回前端
     pool.query(`INSERT INTO trip_data ( userId, type,tripType,distance,date,time,trajectory,Calorie,speed,mark) VALUES ('${query.userId}','${query.type}','${query.tripType}','${query.distance}','${query.date}','${query.time}','${query.trajectory}','${query.Calorie}','${query.speed}','${query.mark}')`, function (err, results, fields) {
@@ -106,17 +109,17 @@ router.get('/addTrip', function (req, res, next) {
 router.get('/addTraffic', function (req, res, next) {
     let query = req.query
     if (query.tripType === '步行') {
-        allDistanceData.allWalk = (Number(allDistanceData.allWalk)+Number(query.distance)).toFixed(2)
-        allDistanceUpdate('allWalk',allDistanceData.allWalk,query.userId)
+        allDistanceData.allWalk = (Number(allDistanceData.allWalk) + Number(query.distance)).toFixed(2)
+        allDistanceUpdate('allWalk', allDistanceData.allWalk, query.userId)
     } else if (query.tripType === '出租车') {
-        allDistanceData.allTaxi = (Number(allDistanceData.allTaxi)+Number(query.distance)).toFixed(2)
-        allDistanceUpdate('allTaxi',allDistanceData.allTaxi,query.userId)
+        allDistanceData.allTaxi = (Number(allDistanceData.allTaxi) + Number(query.distance)).toFixed(2)
+        allDistanceUpdate('allTaxi', allDistanceData.allTaxi, query.userId)
     } else if (query.tripType === '单车/电车') {
-        allDistanceData.allCycle = (Number(allDistanceData.allCycle)+Number(query.distance)).toFixed(2)
-        allDistanceUpdate('allCycle',allDistanceData.allCycle,query.userId)
+        allDistanceData.allCycle = (Number(allDistanceData.allCycle) + Number(query.distance)).toFixed(2)
+        allDistanceUpdate('allCycle', allDistanceData.allCycle, query.userId)
     } else if (query.tripType === '公交/地铁') {
-        allDistanceData.allBus = (Number(allDistanceData.allBus)+Number(query.distance)).toFixed(2)
-        allDistanceUpdate('allBus',allDistanceData.allBus,query.userId)
+        allDistanceData.allBus = (Number(allDistanceData.allBus) + Number(query.distance)).toFixed(2)
+        allDistanceUpdate('allBus', allDistanceData.allBus, query.userId)
     }
     //增删改查之后查询，并把查询的最终数据返回前端
     pool.query(`INSERT INTO trip_data ( userId, type, tripType, distance, date, time, price, startPlace, endPlace, startCode, endCode, mark) VALUES ('${query.userId}','${query.type}','${query.tripType}','${query.distance}','${query.date}','${query.time}','${query.price}','${query.startPlace}','${query.endPlace}','${query.startCode}','${query.endCode}','${query.mark}')`, function (err, results, fields) {
@@ -136,7 +139,7 @@ router.get('/addTraffic', function (req, res, next) {
 })
 
 // 更新里程
-function allDistanceUpdate(key,value,userId){
+function allDistanceUpdate(key, value, userId) {
     console.log(`${key}出行里程更新`)
     console.log(allDistanceData)
     data.data = allDistanceData

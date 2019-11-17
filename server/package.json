@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "pub":"export PORT=80 && npm run start"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
