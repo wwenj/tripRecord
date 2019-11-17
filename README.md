@@ -122,7 +122,7 @@ npm install
 
 # view下前端项目 打开端口localhost:8080
 npm run serve
-
+# 也可以不运行后端，项目已上线会访问线上接口，想连接本地服务器需改变接口地址
 # serve下运行后端项目（必须先导入数据库表）
 DEBUG=myapp:* npm start
 
