@@ -131,6 +131,6 @@ npm run build
 
 ```
 
-作者 [[王文健\]](http://www.wwenj.com/)    
+作者 [[man@wwenj.com\]](http://www.wwenj.com/)    
 
 2019 年 6月 6日 
