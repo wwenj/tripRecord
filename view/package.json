@@ -37,7 +37,7 @@
     "css-loader": "^2.1.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "postcss-pxtorem": "^4.0.1",
     "qs": "^6.7.0",
     "sass-loader": "^7.1.0",
